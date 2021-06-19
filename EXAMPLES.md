@@ -1241,7 +1241,7 @@ peer chaincode query -n mycc -c '{"Args":["queryModels"]}' -C myc
     "in_models": [
      {
       "checksum": "eedbb7c31f62244c0f3a761cc168804227115793d01c270021fe3f7935482eed",
-      "key": "b0289ab8-3a71-f01e-2b72-0259a6452244",
+      "key": "eedbb7c3-1f62-244c-0f3a-761cc1688042",
       "storage_address": "https://substrabac/model/toto",
       "traintuple_key": "b0289ab8-3a71-f01e-2b72-0259a6452244"
      }

@@ -180,17 +180,18 @@ func (outputTraintuple *outputTraintuple) Fill(db *LedgerDB, traintuple Traintup
 		if inModelKey == "" {
 			break
 		}
-		parentTraintuple, err := db.GetTraintuple(inModelKey)
-		if err != nil {
-			return errors.Internal("could not retrieve parent traintuple with key %s - %s", inModelKey, err.Error())
+		keyChecksumAddress, _err := db.GetOutModelKeyChecksumAddress(inModelKey, []AssetType{TraintupleType, CompositeTraintupleType, AggregatetupleType})
+		if _err != nil {
+			err = errors.Internal("could not fill in-model with key \"%s\": %s", inModelKey, _err.Error())
+			return
 		}
 		inModel := &Model{
 			TraintupleKey: inModelKey,
 		}
-		if parentTraintuple.OutModel != nil {
-			inModel.Key = parentTraintuple.Key
-			inModel.Checksum = parentTraintuple.OutModel.Checksum
-			inModel.StorageAddress = parentTraintuple.OutModel.StorageAddress
+		if keyChecksumAddress != nil {
+			inModel.Key = keyChecksumAddress.Key
+			inModel.Checksum = keyChecksumAddress.Checksum
+			inModel.StorageAddress = keyChecksumAddress.StorageAddress
 		}
 		outputTraintuple.InModels = append(outputTraintuple.InModels, inModel)
 	}
